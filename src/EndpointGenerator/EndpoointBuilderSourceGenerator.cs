@@ -1,0 +1,124 @@
+﻿using System.Collections.Immutable;
+using System.Text.RegularExpressions;
+using EndpointBuilder;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+
+namespace EndpointGenerator;
+
+[Generator(LanguageNames.CSharp)]
+public sealed partial class EndpoointBuilderSourceGenerator : IIncrementalGenerator
+{
+    public static readonly DiagnosticDescriptor BuilderMethodMustBeStatic = new(
+        id: "ENDP001",
+        title: "Method must be static",
+        messageFormat: "The endpoint method must be static",
+        category: "EndpointGenerator",
+        DiagnosticSeverity.Warning,
+        isEnabledByDefault: true);
+
+    private static bool IsMethodDeclaration(SyntaxNode node, CancellationToken cancellationToken)
+        => node is MethodDeclarationSyntax { AttributeLists.Count: > 0 };
+
+    public void Initialize(IncrementalGeneratorInitializationContext context)
+    {
+        var assemblyName = context.CompilationProvider
+            .Select(static (c, _) => c.AssemblyName);
+
+        var builderMethods = context.SyntaxProvider.ForAttributeWithMetadataName(
+            "EndpointGenerator.EndpointBuilderAttribute",
+            IsMethodDeclaration,
+            static (c, ct) => (IMethodSymbol)c.TargetSymbol)
+        .Collect();
+
+        var groupBuilderMethods = context.SyntaxProvider.ForAttributeWithMetadataName(
+            "EndpointGenerator.EndpointGroupBuilderAttribute",
+            IsMethodDeclaration,
+            static (c, ct) => (IMethodSymbol)c.TargetSymbol)
+        .Collect();
+
+        context.RegisterSourceOutput(assemblyName.Combine(builderMethods.Combine(groupBuilderMethods)), GenerateMapping);
+    }
+
+    private static void GenerateMapping(
+        SourceProductionContext context,
+        (string? AssemblyName, (ImmutableArray<IMethodSymbol> BuilderMethods, ImmutableArray<IMethodSymbol> GroupMethods) Methods) model)
+    {
+        if (model.Methods.BuilderMethods.IsDefaultOrEmpty && model.Methods.GroupMethods.IsDefaultOrEmpty)
+            return;
+
+        var methodName = Regex.Replace(model.AssemblyName, "\\W", "");
+
+        var source = new CodeBuilder().AppendHeader().AppendLine();
+
+        source.AppendLineNoIndent("#pragma warning disable CS8019");
+        source.AppendLine("using global::Microsoft.AspNetCore.Builder;");
+        source.AppendLine("using global::Microsoft.AspNetCore.Http;");
+        source.AppendLine("using global::Microsoft.AspNetCore.Routing;");
+        source.AppendLineNoIndent("#pragma warning restore CS8019");
+        source.AppendLine();
+
+        using (source.StartBlock("namespace Microsoft.Extensions.DependencyInjection"))
+        {
+            source.AddCompilerGeneratedAttribute();
+            source.AddGeneratedCodeAttribute();
+            using (source.StartBlock("internal static class EndpointExtensions"))
+            {
+                using (source.StartBlock(
+$"public static IEndpointRouteBuilder Map{methodName}(this IEndpointRouteBuilder builder)"))
+                {
+                    foreach (var method in model.Methods.BuilderMethods)
+                    {
+                        if (!method.IsStatic)
+                        {
+                            ReportDiagnostic(context, method, BuilderMethodMustBeStatic);
+                            continue;
+                        }
+
+                        var type = method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+                        var name = method.Name;
+
+                        source.AppendLine($"{type}.{name}(builder);");
+                    }
+
+                    foreach (var method in model.Methods.GroupMethods)
+                    {
+                        if (!method.IsStatic)
+                        {
+                            ReportDiagnostic(context, method, BuilderMethodMustBeStatic);
+                            continue;
+                        }
+
+                        var type = method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+                        var name = method.Name;
+
+                        var endpointName = method.ContainingType.Name;
+
+                        var ns = method.ContainingType.ContainingNamespace;
+
+                        if (ns.IsGlobalNamespace)
+                        {
+                            source.AppendLine(
+$"{type}.{name}(builder.MapGroup(\"\").WithName(\"{endpointName}\"));");
+                        }
+                        else
+                        {
+                            source.AppendLine(
+$"{type}.{name}(builder.MapGroup(\"\").WithName(\"{endpointName}\").WithTags(\"{ns}\"));");
+                        }
+                    }
+
+                    source.AppendLine("return builder;");
+                }
+            }
+        }
+
+        context.AddSource($"EndpointGenerator.g.cs", source);
+    }
+
+    private static void ReportDiagnostic(SourceProductionContext context, IMethodSymbol method, DiagnosticDescriptor diagnostic)
+    {
+        foreach (var loc in method.Locations)
+            context.ReportDiagnostic(Diagnostic.Create(diagnostic, loc));
+    }
+}

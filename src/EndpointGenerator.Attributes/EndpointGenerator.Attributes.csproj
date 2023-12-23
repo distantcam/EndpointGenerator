@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>EndpointGenerator</RootNamespace>
+
+    <Version>0.0.0</Version>
+    <PackageProjectUrl>https://github.com/distantcam/EndpointGenerator</PackageProjectUrl>
+
+    <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(SolutionDir)\src\EndpointGenerator\bin\Release\netstandard2.0\EndpointGenerator.dll">
+      <Pack>true</Pack>
+      <Visible>false</Visible>
+      <PackagePath>analyzers/dotnet/cs</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
