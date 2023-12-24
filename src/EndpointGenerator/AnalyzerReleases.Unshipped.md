@@ -5,4 +5,8 @@
 
 Rule ID | Category          | Severity | Notes
 --------|-------------------|----------|--------------------
-ENDP001 | EndpointGenerator |  Warning | ENDP001_AnalyzerName
+ENDP001 | EndpointGenerator |  Warning | BuilderMethodMustBeStatic
+ENDP002 | EndpointGenerator |  Warning | BuilderMethodMustBeAccessible
+ENDP003 | EndpointGenerator |  Warning | BuilderMethodMustHaveOnlyOneArgument
+ENDP004 | EndpointGenerator |  Warning | BuilderMethodMustHaveCorrectArg
+ENDP005 | EndpointGenerator |  Warning | BuilderGroupMethodMustHaveCorrectArg

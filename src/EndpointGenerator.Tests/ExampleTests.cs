@@ -51,45 +51,36 @@ public class ExampleTests
 
     private static async Task<CSharpCompilation> Compile(params string[] code)
     {
-        var referenceAssemblies = new ReferenceAssemblies(
+        var references = await new ReferenceAssemblies(
             "net8.0",
             new PackageIdentity(
                 "Microsoft.NETCore.App.Ref",
                 "8.0.0"),
             Path.Combine("ref", "net8.0"))
-            .AddPackages([new("Microsoft.AspNetCore.App.Ref", "8.0.0")]);
-
-        var references = await referenceAssemblies.ResolveAsync(null, CancellationToken.None);
-
-        var options = CSharpParseOptions.Default;
+            .AddPackages([new("Microsoft.AspNetCore.App.Ref", "8.0.0")])
+            .ResolveAsync(null, CancellationToken.None);
+        var attributeReference = MetadataReference.CreateFromFile(Path.Combine(Environment.CurrentDirectory, "EndpointGenerator.Attributes.dll"));
 
         return CSharpCompilation.Create(
             "EndpointGeneratorTest",
-            code.Select(c => CSharpSyntaxTree.ParseText(c, options)),
-            [MetadataReference.CreateFromFile(Path.Combine(Environment.CurrentDirectory, "EndpointGenerator.Attributes.dll")), .. references],
-            new CSharpCompilationOptions(
-                OutputKind.DynamicallyLinkedLibrary
-            ));
+            code.Select(c => CSharpSyntaxTree.ParseText(c, CSharpParseOptions.Default)),
+            [attributeReference, .. references],
+            new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
     }
 
     public static IEnumerable<object[]> GetExamples()
     {
         var baseDir = new DirectoryInfo(Environment.CurrentDirectory)?.Parent?.Parent?.Parent;
-
-        if (baseDir == null)
-        {
-            yield break;
-        }
+        if (baseDir == null) yield break;
 
         var examples = Directory.GetFiles(Path.Combine(baseDir.FullName, "Examples"), "*.cs");
         foreach (var example in examples)
         {
             if (example.Contains(".g.")) continue;
 
-            var code = File.ReadAllText(example);
             yield return new object[] {
                 new CodeFileTheoryData {
-                    Code = code,
+                    Code = File.ReadAllText(example),
                     Name = Path.GetFileNameWithoutExtension(example)
                 }
             };

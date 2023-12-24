@@ -1,0 +1,44 @@
+﻿{
+  Diagnostics: [
+    {
+      Id: ENDP002,
+      Title: Method must be accessible,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (23,26)-(23,38),
+      MessageFormat: The endpoint method '{0}' must be public, internal, or protected internal,
+      Message: The endpoint method 'Accessibility.ProtectedMap(IEndpointRouteBuilder)' must be public, internal, or protected internal,
+      Category: EndpointGenerator
+    },
+    {
+      Id: ENDP002,
+      Title: Method must be accessible,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (43,24)-(43,34),
+      MessageFormat: The endpoint method '{0}' must be public, internal, or protected internal,
+      Message: The endpoint method 'Accessibility.PrivateMap(IEndpointRouteBuilder)' must be public, internal, or protected internal,
+      Category: EndpointGenerator
+    },
+    {
+      Id: ENDP002,
+      Title: Method must be accessible,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (28,26)-(28,43),
+      MessageFormat: The endpoint method '{0}' must be public, internal, or protected internal,
+      Message: The endpoint method 'Accessibility.ProtectedGroupMap(RouteGroupBuilder)' must be public, internal, or protected internal,
+      Category: EndpointGenerator
+    },
+    {
+      Id: ENDP002,
+      Title: Method must be accessible,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (48,24)-(48,39),
+      MessageFormat: The endpoint method '{0}' must be public, internal, or protected internal,
+      Message: The endpoint method 'Accessibility.PrivateGroupMap(RouteGroupBuilder)' must be public, internal, or protected internal,
+      Category: EndpointGenerator
+    }
+  ]
+}

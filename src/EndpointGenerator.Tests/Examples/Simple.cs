@@ -1,7 +1,7 @@
 ﻿internal class Simple
 {
     [EndpointGenerator.EndpointBuilder]
-    public static void SimpleMap(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder builder)
+    public static void Map(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder builder)
     {
     }
 

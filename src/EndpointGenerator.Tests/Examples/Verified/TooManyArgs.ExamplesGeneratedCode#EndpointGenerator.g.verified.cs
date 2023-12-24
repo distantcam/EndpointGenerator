@@ -21,8 +21,6 @@ namespace Microsoft.Extensions.DependencyInjection
 	{
 		public static IEndpointRouteBuilder MapEndpointGeneratorTest(this IEndpointRouteBuilder builder)
 		{
-			global::NS.WithNamespace.Map(builder);
-			global::NS.WithNamespace.GroupMap(builder.MapGroup("").WithName("WithNamespace").WithTags("NS"));
 			return builder;
 		}
 	}

@@ -1,0 +1,44 @@
+﻿{
+  Diagnostics: [
+    {
+      Id: ENDP004,
+      Title: Method must have correct argument type,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (3,23)-(3,32),
+      MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.IEndpointRouteBuilder',
+      Message: The endpoint method 'WrongArgType.StringMap(string)' must have only one argument of type 'Microsoft.AspNetCore.Routing.IEndpointRouteBuilder',
+      Category: EndpointGenerator
+    },
+    {
+      Id: ENDP004,
+      Title: Method must have correct argument type,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (7,23)-(7,31),
+      MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.IEndpointRouteBuilder',
+      Message: The endpoint method 'WrongArgType.GroupMap(RouteGroupBuilder)' must have only one argument of type 'Microsoft.AspNetCore.Routing.IEndpointRouteBuilder',
+      Category: EndpointGenerator
+    },
+    {
+      Id: ENDP005,
+      Title: Method must have correct argument type,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (12,23)-(12,26),
+      MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.RouteGroupBuilder',
+      Message: The endpoint method 'WrongArgType.Map(IEndpointRouteBuilder)' must have only one argument of type 'Microsoft.AspNetCore.Routing.RouteGroupBuilder',
+      Category: EndpointGenerator
+    },
+    {
+      Id: ENDP005,
+      Title: Method must have correct argument type,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (16,23)-(16,37),
+      MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.RouteGroupBuilder',
+      Message: The endpoint method 'WrongArgType.StringGroupMap(string)' must have only one argument of type 'Microsoft.AspNetCore.Routing.RouteGroupBuilder',
+      Category: EndpointGenerator
+    }
+  ]
+}

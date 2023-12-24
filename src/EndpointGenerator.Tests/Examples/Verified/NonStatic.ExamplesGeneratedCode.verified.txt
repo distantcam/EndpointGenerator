@@ -1,0 +1,24 @@
+﻿{
+  Diagnostics: [
+    {
+      Id: ENDP001,
+      Title: Method must be static,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (3,16)-(3,19),
+      MessageFormat: The endpoint method '{0}' must be static,
+      Message: The endpoint method 'NonStatic.Map(IEndpointRouteBuilder)' must be static,
+      Category: EndpointGenerator
+    },
+    {
+      Id: ENDP001,
+      Title: Method must be static,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (8,16)-(8,24),
+      MessageFormat: The endpoint method '{0}' must be static,
+      Message: The endpoint method 'NonStatic.GroupMap(RouteGroupBuilder)' must be static,
+      Category: EndpointGenerator
+    }
+  ]
+}

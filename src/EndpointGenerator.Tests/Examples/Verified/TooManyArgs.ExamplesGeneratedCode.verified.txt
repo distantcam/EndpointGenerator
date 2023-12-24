@@ -1,0 +1,24 @@
+﻿{
+  Diagnostics: [
+    {
+      Id: ENDP003,
+      Title: Method must have only one argument,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (3,23)-(3,26),
+      MessageFormat: The endpoint method '{0}' must have only one argument,
+      Message: The endpoint method 'TooManyArgs.Map(IEndpointRouteBuilder, string)' must have only one argument,
+      Category: EndpointGenerator
+    },
+    {
+      Id: ENDP003,
+      Title: Method must have only one argument,
+      Severity: Warning,
+      WarningLevel: 1,
+      Location: : (8,23)-(8,31),
+      MessageFormat: The endpoint method '{0}' must have only one argument,
+      Message: The endpoint method 'TooManyArgs.GroupMap(RouteGroupBuilder, string)' must have only one argument,
+      Category: EndpointGenerator
+    }
+  ]
+}
