@@ -10,6 +10,17 @@
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>EndpointGenerator</PackageId>
+    <Authors>Cameron MacFarland</Authors>
+    <Description>
+      Source Generator to help create minimal api endpoint mappings.
+    </Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageOutputPath>$(SolutionDir)nugets</PackageOutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
   </ItemGroup>
@@ -20,6 +31,8 @@
       <Visible>false</Visible>
       <PackagePath>analyzers/dotnet/cs</PackagePath>
     </None>
+
+    <None Include="$(SolutionDir)readme.md" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
 
 </Project>
