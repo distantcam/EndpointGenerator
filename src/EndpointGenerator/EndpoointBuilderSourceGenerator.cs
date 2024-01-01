@@ -98,7 +98,7 @@ public sealed partial class EndpoointBuilderSourceGenerator : IIncrementalGenera
             using (source.StartBlock("internal static class EndpointExtensions"))
             {
                 using (source.StartBlock(
-$"public static IEndpointRouteBuilder Map{methodName}(this IEndpointRouteBuilder builder)"))
+$"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRouteBuilder builder)"))
                 {
                     foreach (var method in model.Methods.BuilderMethods)
                     {

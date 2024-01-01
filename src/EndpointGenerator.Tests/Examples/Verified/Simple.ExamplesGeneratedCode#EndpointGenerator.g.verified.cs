@@ -19,7 +19,7 @@ namespace Microsoft.Extensions.DependencyInjection
 	[global::System.Runtime.CompilerServices.CompilerGeneratedAttribute]
 	internal static class EndpointExtensions
 	{
-		public static IEndpointRouteBuilder MapEndpointGeneratorTest(this IEndpointRouteBuilder builder)
+		public static IEndpointRouteBuilder MapEndpointGeneratorTestEndpoints(this IEndpointRouteBuilder builder)
 		{
 			global::Simple.Map(builder);
 			global::Simple.GroupMap(builder.MapGroup("").WithName("Simple"));
