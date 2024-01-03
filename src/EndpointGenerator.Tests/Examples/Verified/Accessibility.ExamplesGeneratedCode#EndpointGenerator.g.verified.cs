@@ -24,10 +24,9 @@ namespace Microsoft.Extensions.DependencyInjection
 			global::Accessibility.PublicMap(builder);
 			global::Accessibility.InternalMap(builder);
 			global::Accessibility.ProtectedInternalMap(builder);
-			var group0 = builder.MapGroup("/accessibility");
-			global::Accessibility.PublicGroupMap(group0.WithName("Accessibility"));
-			global::Accessibility.InternalGroupMap(group0.WithName("Accessibility"));
-			global::Accessibility.ProtectedInternalGroupMap(group0.WithName("Accessibility"));
+			global::Accessibility.PublicGroupMap(builder.MapGroup("").WithName("Accessibility"));
+			global::Accessibility.InternalGroupMap(builder.MapGroup("").WithName("Accessibility"));
+			global::Accessibility.ProtectedInternalGroupMap(builder.MapGroup("").WithName("Accessibility"));
 			return builder;
 		}
 	}

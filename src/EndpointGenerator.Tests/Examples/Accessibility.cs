@@ -5,7 +5,7 @@
     {
     }
 
-    [EndpointGenerator.EndpointGroupBuilder("/accessibility")]
+    [EndpointGenerator.EndpointGroupBuilder]
     public static void PublicGroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder)
     {
     }
@@ -15,7 +15,7 @@
     {
     }
 
-    [EndpointGenerator.EndpointGroupBuilder("/accessibility")]
+    [EndpointGenerator.EndpointGroupBuilder]
     internal static void InternalGroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder)
     {
     }
@@ -25,7 +25,7 @@
     {
     }
 
-    [EndpointGenerator.EndpointGroupBuilder("/accessibility")]
+    [EndpointGenerator.EndpointGroupBuilder]
     protected static void ProtectedGroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder)
     {
     }
@@ -35,7 +35,7 @@
     {
     }
 
-    [EndpointGenerator.EndpointGroupBuilder("/accessibility")]
+    [EndpointGenerator.EndpointGroupBuilder]
     protected internal static void ProtectedInternalGroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder)
     {
     }
@@ -45,7 +45,7 @@
     {
     }
 
-    [EndpointGenerator.EndpointGroupBuilder("/accessibility")]
+    [EndpointGenerator.EndpointGroupBuilder]
     private static void PrivateGroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder)
     {
     }

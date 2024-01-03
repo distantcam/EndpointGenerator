@@ -5,7 +5,7 @@
     {
     }
 
-    [EndpointGenerator.EndpointGroupBuilder("/nonstatic")]
+    [EndpointGenerator.EndpointGroupBuilder]
     public void GroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder)
     {
     }

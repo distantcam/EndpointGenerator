@@ -7,7 +7,7 @@
         {
         }
 
-        [EndpointGenerator.EndpointGroupBuilder("/withnamespace")]
+        [EndpointGenerator.EndpointGroupBuilder]
         public static void GroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder)
         {
         }

@@ -9,11 +9,11 @@
     {
     }
 
-    [EndpointGenerator.EndpointGroupBuilder("/wrongargtype")]
+    [EndpointGenerator.EndpointGroupBuilder]
     public static void Map(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder builder)
     {
     }
-    [EndpointGenerator.EndpointGroupBuilder("/wrongargtype")]
+    [EndpointGenerator.EndpointGroupBuilder]
     public static void StringGroupMap(string builder)
     {
     }

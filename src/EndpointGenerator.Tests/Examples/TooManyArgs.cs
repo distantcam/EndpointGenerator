@@ -5,7 +5,7 @@
     {
     }
 
-    [EndpointGenerator.EndpointGroupBuilder("/toomanyargs")]
+    [EndpointGenerator.EndpointGroupBuilder]
     public static void GroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder, string s)
     {
     }
