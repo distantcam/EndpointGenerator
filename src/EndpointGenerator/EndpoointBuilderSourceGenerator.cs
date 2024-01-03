@@ -110,26 +110,36 @@ $"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRou
                         source.AppendLine($"{type}.{name}(builder);");
                     }
 
-                    foreach (var method in model.Methods.GroupMethods)
+                    var methodGroups = model.Methods.GroupMethods
+                        .Where(m => !CheckMethod(context, m, true))
+                        .GroupBy(GroupByPrefix);
+
+                    var groupNum = 0;
+
+                    foreach (var group in methodGroups)
                     {
-                        if (CheckMethod(context, method, true)) continue;
+                        var groupName = "group" + groupNum++;
+                        source.AppendLine($"var {groupName} = builder.MapGroup(\"{group.Key}\");");
 
-                        var type = method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
-                        var name = method.Name;
-
-                        var endpointName = method.ContainingType.Name;
-
-                        var ns = method.ContainingType.ContainingNamespace;
-
-                        if (ns.IsGlobalNamespace)
+                        foreach (var method in group)
                         {
-                            source.AppendLine(
-$"{type}.{name}(builder.MapGroup(\"\").WithName(\"{endpointName}\"));");
-                        }
-                        else
-                        {
-                            source.AppendLine(
-$"{type}.{name}(builder.MapGroup(\"\").WithName(\"{endpointName}\").WithTags(\"{ns}\"));");
+                            var type = method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+                            var name = method.Name;
+
+                            var endpointName = method.ContainingType.Name;
+
+                            var ns = method.ContainingType.ContainingNamespace;
+
+                            if (ns.IsGlobalNamespace)
+                            {
+                                source.AppendLine(
+$"{type}.{name}({groupName}.WithName(\"{endpointName}\"));");
+                            }
+                            else
+                            {
+                                source.AppendLine(
+$"{type}.{name}({groupName}.WithName(\"{endpointName}\").WithTags(\"{ns}\"));");
+                            }
                         }
                     }
 
@@ -139,6 +149,14 @@ $"{type}.{name}(builder.MapGroup(\"\").WithName(\"{endpointName}\").WithTags(\"{
         }
 
         context.AddSource($"EndpointGenerator.g.cs", source);
+    }
+
+    private static string GroupByPrefix(IMethodSymbol method)
+    {
+        var attribute = method.GetAttributes().FirstOrDefault(a => a.AttributeClass?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) == "global::EndpointGenerator.EndpointGroupBuilderAttribute");
+        if (attribute == null) return string.Empty;
+
+        return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
     }
 
     private static bool CheckMethod(SourceProductionContext context, IMethodSymbol method, bool isGrouped)

@@ -5,7 +5,7 @@
     {
     }
 
-    [EndpointGenerator.EndpointGroupBuilder]
+    [EndpointGenerator.EndpointGroupBuilder("/simple")]
     public static void GroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder)
     {
     }

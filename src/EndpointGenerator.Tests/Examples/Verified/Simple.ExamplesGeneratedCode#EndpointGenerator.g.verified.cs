@@ -22,7 +22,8 @@ namespace Microsoft.Extensions.DependencyInjection
 		public static IEndpointRouteBuilder MapEndpointGeneratorTestEndpoints(this IEndpointRouteBuilder builder)
 		{
 			global::Simple.Map(builder);
-			global::Simple.GroupMap(builder.MapGroup("").WithName("Simple"));
+			var group0 = builder.MapGroup("/simple");
+			global::Simple.GroupMap(group0.WithName("Simple"));
 			return builder;
 		}
 	}
