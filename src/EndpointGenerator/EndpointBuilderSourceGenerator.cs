@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace EndpointGenerator;
 
 [Generator(LanguageNames.CSharp)]
-public sealed partial class EndpoointBuilderSourceGenerator : IIncrementalGenerator
+public sealed partial class EndpointBuilderSourceGenerator : IIncrementalGenerator
 {
     public static readonly DiagnosticDescriptor BuilderMethodMustBeStatic = new(
         id: "ENDP001",
