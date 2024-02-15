@@ -21,7 +21,7 @@ public class ExampleTests
     public async Task ExamplesGeneratedCode(CodeFileTheoryData theoryData)
     {
         var compilation = await Compile(theoryData.Code);
-        var generator = new EndpoointBuilderSourceGenerator();
+        var generator = new EndpointBuilderSourceGenerator();
         var driver = CreateDriver(compilation, generator).RunGenerators(compilation);
 
         await Verify(driver, _codeVerifySettings)
@@ -36,7 +36,7 @@ public class ExampleTests
         string[] ignoredWarnings = [];
 
         var compilation = await Compile(theoryData.Code);
-        var generator = new EndpoointBuilderSourceGenerator();
+        var generator = new EndpointBuilderSourceGenerator();
         CreateDriver(compilation, generator)
             .RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out _);
 
