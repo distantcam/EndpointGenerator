@@ -110,26 +110,39 @@ $"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRou
                         source.AppendLine($"{type}.{name}(builder);");
                     }
 
-                    foreach (var method in model.Methods.GroupMethods)
+                    var methodGroups = model.Methods.GroupMethods
+                        .Where(m => !CheckMethod(context, m, true))
+                        .GroupBy(GetAttributeParameters);
+
+                    var groupNum = 0;
+
+                    foreach (var g1 in methodGroups)
                     {
-                        if (CheckMethod(context, method, true)) continue;
-
-                        var type = method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
-                        var name = method.Name;
-
-                        var endpointName = method.ContainingType.Name;
-
-                        var ns = method.ContainingType.ContainingNamespace;
-
-                        if (ns.IsGlobalNamespace)
+                        var b = $"builder.MapGroup(\"{g1.Key!.Prefix}\")";
+                        if (g1.Key.DisableAntiforgery)
                         {
-                            source.AppendLine(
-$"{type}.{name}(builder.MapGroup(\"\").WithName(\"{endpointName}\"));");
+                            b += ".DisableAntiforgery()";
                         }
-                        else
+
+                        var namedGroups = g1.GroupBy(static m => m.ContainingType, SymbolEqualityComparer.Default);
+
+                        foreach (var g2 in namedGroups)
                         {
-                            source.AppendLine(
-$"{type}.{name}(builder.MapGroup(\"\").WithName(\"{endpointName}\").WithTags(\"{ns}\"));");
+                            b += $".WithName(\"{g2.Key!.Name}\")";
+                            if (!g2.Key.ContainingNamespace.IsGlobalNamespace)
+                                b += $".WithTags(\"{g2.Key.ContainingNamespace}\")";
+
+                            var groupName = "group" + groupNum++;
+                            source.AppendLine($"var {groupName} = {b};");
+
+                            foreach (var method in g2)
+                            {
+                                var type = method.ContainingType
+                                    .ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+                                var name = method.Name;
+
+                                source.AppendLine($"{type}.{name}({groupName});");
+                            }
                         }
                     }
 
@@ -139,6 +152,17 @@ $"{type}.{name}(builder.MapGroup(\"\").WithName(\"{endpointName}\").WithTags(\"{
         }
 
         context.AddSource($"EndpointGenerator.g.cs", source);
+    }
+
+    private static GroupedAttributeParameters? GetAttributeParameters(IMethodSymbol method)
+    {
+        var attribute = method.GetAttributes().FirstOrDefault(a => a.AttributeClass?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) == "global::EndpointGenerator.EndpointGroupBuilderAttribute");
+        if (attribute == null) return null;
+
+        return new GroupedAttributeParameters(
+            attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty,
+            ((bool?)attribute.ConstructorArguments[1].Value) ?? false
+        );
     }
 
     private static bool CheckMethod(SourceProductionContext context, IMethodSymbol method, bool isGrouped)
@@ -184,4 +208,6 @@ $"{type}.{name}(builder.MapGroup(\"\").WithName(\"{endpointName}\").WithTags(\"{
         foreach (var loc in method.Locations)
             context.ReportDiagnostic(Diagnostic.Create(diagnostic, loc, method.ToDisplayString(SymbolDisplayFormat.CSharpShortErrorMessageFormat)));
     }
+
+    private record GroupedAttributeParameters(string Prefix, bool DisableAntiforgery);
 }

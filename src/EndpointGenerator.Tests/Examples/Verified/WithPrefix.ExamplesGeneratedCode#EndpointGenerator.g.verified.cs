@@ -21,13 +21,9 @@ namespace Microsoft.Extensions.DependencyInjection
 	{
 		public static IEndpointRouteBuilder MapEndpointGeneratorTestEndpoints(this IEndpointRouteBuilder builder)
 		{
-			global::Accessibility.PublicMap(builder);
-			global::Accessibility.InternalMap(builder);
-			global::Accessibility.ProtectedInternalMap(builder);
-			var group0 = builder.MapGroup("").WithName("Accessibility");
-			global::Accessibility.PublicGroupMap(group0);
-			global::Accessibility.InternalGroupMap(group0);
-			global::Accessibility.ProtectedInternalGroupMap(group0);
+			var group0 = builder.MapGroup("ThePrefix").WithName("WithPrefix");
+			global::WithPrefix.PrefixMap1(group0);
+			global::WithPrefix.PrefixMap2(group0);
 			return builder;
 		}
 	}
