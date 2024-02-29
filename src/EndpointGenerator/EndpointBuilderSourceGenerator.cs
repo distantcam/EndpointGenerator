@@ -119,11 +119,6 @@ $"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRou
                     foreach (var g1 in methodGroups)
                     {
                         var b = $"builder.MapGroup(\"{g1.Key!.Prefix}\")";
-                        if (g1.Key.DisableAntiforgery)
-                        {
-                            b += ".DisableAntiforgery()";
-                        }
-
                         var namedGroups = g1.GroupBy(static m => m.ContainingType, SymbolEqualityComparer.Default);
 
                         foreach (var g2 in namedGroups)
@@ -160,8 +155,7 @@ $"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRou
         if (attribute == null) return null;
 
         return new GroupedAttributeParameters(
-            attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty,
-            ((bool?)attribute.ConstructorArguments[1].Value) ?? false
+            attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty
         );
     }
 
@@ -209,5 +203,5 @@ $"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRou
             context.ReportDiagnostic(Diagnostic.Create(diagnostic, loc, method.ToDisplayString(SymbolDisplayFormat.CSharpShortErrorMessageFormat)));
     }
 
-    private record GroupedAttributeParameters(string Prefix, bool DisableAntiforgery);
+    private record GroupedAttributeParameters(string Prefix);
 }
