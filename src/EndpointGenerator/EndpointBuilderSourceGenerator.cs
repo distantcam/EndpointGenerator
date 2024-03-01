@@ -123,12 +123,12 @@ $"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRou
 
                         foreach (var g2 in namedGroups)
                         {
-                            b += $".WithName(\"{g2.Key!.Name}\")";
+                            var b2 = b + $".WithName(\"{g2.Key!.Name}\")";
                             if (!g2.Key.ContainingNamespace.IsGlobalNamespace)
-                                b += $".WithTags(\"{g2.Key.ContainingNamespace}\")";
+                                b2 += $".WithTags(\"{g2.Key.ContainingNamespace}\")";
 
                             var groupName = "group" + groupNum++;
-                            source.AppendLine($"var {groupName} = {b};");
+                            source.AppendLine($"var {groupName} = {b2};");
 
                             foreach (var method in g2)
                             {
