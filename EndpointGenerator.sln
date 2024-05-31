@@ -4,6 +4,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Attributes", "src\EndpointGenerator.Attributes\EndpointGenerator.Attributes.csproj", "{2516AC7A-28A3-4429-B886-D060C118D513}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5C215B65-0B60-490A-B114-4AFB2BD1760A} = {5C215B65-0B60-490A-B114-4AFB2BD1760A}
+		{66F0E9B4-7618-4123-BC22-4116DE1135D3} = {66F0E9B4-7618-4123-BC22-4116DE1135D3}
+		{AD7E2B8F-BFDF-47D1-B341-EB61DD241662} = {AD7E2B8F-BFDF-47D1-B341-EB61DD241662}
+		{BAB75834-5C22-4260-9215-DB9E89F55F08} = {BAB75834-5C22-4260-9215-DB9E89F55F08}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Tests", "src\EndpointGenerator.Tests\EndpointGenerator.Tests.csproj", "{17F1DAB6-47B1-47EA-BAD7-38EBB937A0F6}"
 EndProject

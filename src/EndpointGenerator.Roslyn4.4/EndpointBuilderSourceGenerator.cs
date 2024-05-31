@@ -13,14 +13,14 @@ public sealed partial class EndpointBuilderSourceGenerator : IIncrementalGenerat
         var builderMethods = context.SyntaxProvider.ForAttributeWithMetadataName(
             "EndpointGenerator.EndpointBuilderAttribute",
             Parser.IsMethodDeclaration,
-            static (c, ct) => (IMethodSymbol)c.TargetSymbol)
+            static (c, ct) => MethodModel.Create((IMethodSymbol)c.TargetSymbol))
         .WithTrackingName(TrackingNames.BuilderModels)
         .Collect();
 
         var groupBuilderMethods = context.SyntaxProvider.ForAttributeWithMetadataName(
             "EndpointGenerator.EndpointGroupBuilderAttribute",
             Parser.IsMethodDeclaration,
-            static (c, ct) => (IMethodSymbol)c.TargetSymbol)
+            static (c, ct) => MethodModel.Create((IMethodSymbol)c.TargetSymbol))
         .WithTrackingName(TrackingNames.GroupBuilderModels)
         .Collect();
 

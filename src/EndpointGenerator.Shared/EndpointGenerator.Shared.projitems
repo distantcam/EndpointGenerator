@@ -14,7 +14,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator.Tracking.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator.Diagnostics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeBuilder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)helpers\IsExternalInit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\IsExternalInit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EquatableList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MethodModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)AnalyzerReleases.Shipped.md" />

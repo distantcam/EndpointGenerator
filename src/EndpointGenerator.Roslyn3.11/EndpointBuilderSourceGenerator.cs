@@ -8,8 +8,8 @@ public sealed partial class EndpointBuilderSourceGenerator : ISourceGenerator
 {
     private sealed class SyntaxContextReceiver(CancellationToken cancellationToken) : ISyntaxContextReceiver
     {
-        public List<IMethodSymbol>? BuilderMethods { get; private set; }
-        public List<IMethodSymbol>? GroupBuilderMethods { get; private set; }
+        public List<MethodModel>? BuilderMethods { get; private set; }
+        public List<MethodModel>? GroupBuilderMethods { get; private set; }
 
         public void OnVisitSyntaxNode(GeneratorSyntaxContext context)
         {
@@ -17,11 +17,11 @@ public sealed partial class EndpointBuilderSourceGenerator : ISourceGenerator
             {
                 var method = Parser.GetBuilderMarkedMethodSymbol(context, cancellationToken);
                 if (method != null)
-                    (BuilderMethods ??= []).Add(method);
+                    (BuilderMethods ??= []).Add(MethodModel.Create(method));
 
                 method = Parser.GetGroupBuilderMarkedMethodSymbol(context, cancellationToken);
                 if (method != null)
-                    (GroupBuilderMethods ??= []).Add(method);
+                    (GroupBuilderMethods ??= []).Add(MethodModel.Create(method));
             }
         }
     }
@@ -41,8 +41,8 @@ public sealed partial class EndpointBuilderSourceGenerator : ISourceGenerator
         var assemblyName = context.Compilation.AssemblyName;
 
         var methods = (
-            receiver.BuilderMethods?.ToImmutableArray() ?? ImmutableArray<IMethodSymbol>.Empty,
-            receiver.GroupBuilderMethods?.ToImmutableArray() ?? ImmutableArray<IMethodSymbol>.Empty
+            receiver.BuilderMethods?.ToImmutableArray() ?? ImmutableArray<MethodModel>.Empty,
+            receiver.GroupBuilderMethods?.ToImmutableArray() ?? ImmutableArray<MethodModel>.Empty
         );
 
         Emitter.GenerateSource(context, (methods, assemblyName));

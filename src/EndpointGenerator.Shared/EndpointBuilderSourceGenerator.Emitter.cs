@@ -17,7 +17,7 @@ public partial class EndpointBuilderSourceGenerator
     {
         public static void GenerateSource(
             EmitterContext context,
-            ((ImmutableArray<IMethodSymbol> BuilderMethods, ImmutableArray<IMethodSymbol> GroupMethods) Methods,
+            ((ImmutableArray<MethodModel> BuilderMethods, ImmutableArray<MethodModel> GroupMethods) Methods,
             string? AssemblyName) input)
         {
             if (input.Methods.BuilderMethods.IsDefaultOrEmpty && input.Methods.GroupMethods.IsDefaultOrEmpty)
@@ -46,40 +46,32 @@ $"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRou
                         foreach (var method in input.Methods.BuilderMethods)
                         {
                             if (CheckMethod(context, method, false)) continue;
-
-                            var type = method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
-                            var name = method.Name;
-
-                            source.AppendLine($"{type}.{name}(builder);");
+                            source.AppendLine($"{method.StaticCall}(builder);");
                         }
 
                         var methodGroups = input.Methods.GroupMethods
                             .Where(m => !CheckMethod(context, m, true))
-                            .GroupBy(GetAttributeParameters);
+                            .GroupBy(m => m.GroupedAttributeParameters);
 
                         var groupNum = 0;
 
                         foreach (var g1 in methodGroups)
                         {
                             var b = $"builder.MapGroup(\"{g1.Key!.Prefix}\")";
-                            var namedGroups = g1.GroupBy(static m => m.ContainingType, SymbolEqualityComparer.Default);
+                            var namedGroups = g1.GroupBy(static m => m.ContainingType);
 
                             foreach (var g2 in namedGroups)
                             {
-                                var b2 = b + $".WithName(\"{g2.Key!.Name}\")";
-                                if (!g2.Key.ContainingNamespace.IsGlobalNamespace)
-                                    b2 += $".WithTags(\"{g2.Key.ContainingNamespace}\")";
+                                var b2 = b + $".WithName(\"{g2.Key.Name}\")";
+                                if (g2.Key.Tag != null)
+                                    b2 += $".WithTags(\"{g2.Key.Tag}\")";
 
                                 var groupName = "group" + groupNum++;
                                 source.AppendLine($"var {groupName} = {b2};");
 
                                 foreach (var method in g2)
                                 {
-                                    var type = method.ContainingType
-                                        .ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
-                                    var name = method.Name;
-
-                                    source.AppendLine($"{type}.{name}({groupName});");
+                                    source.AppendLine($"{method.StaticCall}({groupName});");
                                 }
                             }
                         }
@@ -92,7 +84,7 @@ $"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRou
             context.AddSource($"EndpointGenerator.g.cs", source);
         }
 
-        private static bool CheckMethod(EmitterContext context, IMethodSymbol method, bool isGrouped)
+        private static bool CheckMethod(EmitterContext context, MethodModel method, bool isGrouped)
         {
             var failed = false;
             if (!method.IsStatic)
@@ -107,21 +99,21 @@ $"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRou
                 ReportDiagnostic(context, method, Diagnostics.BuilderMethodMustBeAccessible);
                 failed = true;
             }
-            var args = method.Parameters;
-            if (args.Length != 1)
+            if (method.ParameterCount != 1)
             {
                 ReportDiagnostic(context, method, Diagnostics.BuilderMethodMustHaveOnlyOneArgument);
                 failed = true;
             }
             else
             {
-                var argType = args[0].Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
-                if (!isGrouped && argType != "global::Microsoft.AspNetCore.Routing.IEndpointRouteBuilder")
+                if (!isGrouped &&
+                    method.FirstParameterType != "global::Microsoft.AspNetCore.Routing.IEndpointRouteBuilder")
                 {
                     ReportDiagnostic(context, method, Diagnostics.BuilderMethodMustHaveCorrectArg);
                     failed = true;
                 }
-                if (isGrouped && argType != "global::Microsoft.AspNetCore.Routing.RouteGroupBuilder")
+                if (isGrouped &&
+                    method.FirstParameterType != "global::Microsoft.AspNetCore.Routing.RouteGroupBuilder")
                 {
                     ReportDiagnostic(context, method, Diagnostics.BuilderGroupMethodMustHaveCorrectArg);
                     failed = true;
@@ -130,22 +122,10 @@ $"public static IEndpointRouteBuilder Map{methodName}Endpoints(this IEndpointRou
             return failed;
         }
 
-        private static void ReportDiagnostic(EmitterContext context, IMethodSymbol method, DiagnosticDescriptor diagnostic)
+        private static void ReportDiagnostic(EmitterContext context, MethodModel method, DiagnosticDescriptor diagnostic)
         {
             foreach (var loc in method.Locations)
-                context.ReportDiagnostic(Diagnostic.Create(diagnostic, loc, method.ToDisplayString(SymbolDisplayFormat.CSharpShortErrorMessageFormat)));
+                context.ReportDiagnostic(Diagnostic.Create(diagnostic, loc, method.ErrorName));
         }
-
-        private static GroupedAttributeParameters? GetAttributeParameters(IMethodSymbol method)
-        {
-            var attribute = method.GetAttributes().FirstOrDefault(a => a.AttributeClass?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) == "global::EndpointGenerator.EndpointGroupBuilderAttribute");
-            if (attribute == null) return null;
-
-            return new GroupedAttributeParameters(
-                attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty
-            );
-        }
-
-        private record GroupedAttributeParameters(string Prefix);
     }
 }
