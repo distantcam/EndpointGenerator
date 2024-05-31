@@ -1,7 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>EndpointGenerator</AssemblyName>
+    <RootNamespace>EndpointGenerator</RootNamespace>
 
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <IncludeBuildOutput>false</IncludeBuildOutput>
@@ -19,7 +20,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" PrivateAssets="all" />
   </ItemGroup>
+
+  <Import Project="EndpointGenerator.Shared\EndpointGenerator.Shared.projitems" Label="Shared" />
 
 </Project>

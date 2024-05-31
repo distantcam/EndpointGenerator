@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>a4d16807-36f7-411b-b279-6e2a90c41700</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>EndpointGenerator.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator.Emitter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator.Parser.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator.Tracking.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator.Diagnostics.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)helpers\IsExternalInit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)AnalyzerReleases.Shipped.md" />
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)AnalyzerReleases.Unshipped.md" />
+  </ItemGroup>
+</Project>

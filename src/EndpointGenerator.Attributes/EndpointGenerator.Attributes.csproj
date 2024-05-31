@@ -26,10 +26,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(SolutionDir)\src\EndpointGenerator\bin\Release\netstandard2.0\EndpointGenerator.dll">
+    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn3.11\bin\Release\netstandard2.0\EndpointGenerator.dll">
       <Pack>true</Pack>
       <Visible>false</Visible>
-      <PackagePath>analyzers/dotnet/cs</PackagePath>
+      <PackagePath>analyzers/dotnet/roslyn3.11/cs</PackagePath>
+    </None>
+    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn4.4\bin\Release\netstandard2.0\EndpointGenerator.dll">
+      <Pack>true</Pack>
+      <Visible>false</Visible>
+      <PackagePath>analyzers/dotnet/roslyn4.4/cs</PackagePath>
+    </None>
+    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn4.6\bin\Release\netstandard2.0\EndpointGenerator.dll">
+      <Pack>true</Pack>
+      <Visible>false</Visible>
+      <PackagePath>analyzers/dotnet/roslyn4.6/cs</PackagePath>
+    </None>
+    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn4.8\bin\Release\netstandard2.0\EndpointGenerator.dll">
+      <Pack>true</Pack>
+      <Visible>false</Visible>
+      <PackagePath>analyzers/dotnet/roslyn4.8/cs</PackagePath>
     </None>
 
     <None Include="$(SolutionDir)readme.md" Pack="true" PackagePath="\" Visible="false" />

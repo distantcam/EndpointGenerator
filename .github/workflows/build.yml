@@ -15,7 +15,7 @@ on:
 
 jobs:
   build:
-    name: 🛠️ Build and test
+    name: 🛠️ Build
     runs-on: ubuntu-latest
     steps:
       - name: 👨‍💻 Check-out code
@@ -37,11 +37,32 @@ jobs:
       - name: 🛠️ Build code
         run: dotnet build --configuration Release --no-restore
 
-      - name: 🧪 Test code
+  test:
+    name: 🧪 Run tests
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        roslyn: ["3.11", "4.4", "4.6", "4.8"]
+    steps:
+      - name: 👨‍💻 Check-out code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 👨‍🔧 Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: src/global.json
+
+      - name: 🔍 Enable problem matchers
+        run: echo "::add-matcher::.github/matchers/dotnet.json"
+
+      - name: 🧪 Testing ${{ matrix.roslyn }} code
         run: >
           dotnet test
           --configuration Release
-          --no-build
+          -p:RoslynVersion=${{ matrix.roslyn }}
           --logger GitHubActions
           --
           RunConfiguration.CollectSourceInformation=true
@@ -72,7 +93,7 @@ jobs:
         run: dotnet build --configuration Release -p:Version=${{ github.ref_name }} -p:GitSha=${{ github.sha }} --no-restore
 
       - name: 📦 Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: nuget
           path: nugets/*.nupkg

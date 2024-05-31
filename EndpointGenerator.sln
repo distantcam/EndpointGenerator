@@ -5,14 +5,25 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Attributes", "src\EndpointGenerator.Attributes\EndpointGenerator.Attributes.csproj", "{2516AC7A-28A3-4429-B886-D060C118D513}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator", "src\EndpointGenerator\EndpointGenerator.csproj", "{A4B64658-5D89-4287-A18C-ADA8BF9A10F9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Tests", "src\EndpointGenerator.Tests\EndpointGenerator.Tests.csproj", "{17F1DAB6-47B1-47EA-BAD7-38EBB937A0F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCAE0B0B-7A73-4200-9CC8-1B1A95406624}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\build.yml = .github\workflows\build.yml
+		src\Common.props = src\Common.props
+		src\Directory.Build.props = src\Directory.Build.props
+		src\global.json = src\global.json
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn3.11", "src\EndpointGenerator.Roslyn3.11\EndpointGenerator.Roslyn3.11.csproj", "{AD7E2B8F-BFDF-47D1-B341-EB61DD241662}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EndpointGenerator.Shared", "src\EndpointGenerator.Shared\EndpointGenerator.Shared.shproj", "{A4D16807-36F7-411B-B279-6E2A90C41700}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.4", "src\EndpointGenerator.Roslyn4.4\EndpointGenerator.Roslyn4.4.csproj", "{66F0E9B4-7618-4123-BC22-4116DE1135D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointGenerator.Roslyn4.6", "src\EndpointGenerator.Roslyn4.6\EndpointGenerator.Roslyn4.6.csproj", "{5C215B65-0B60-490A-B114-4AFB2BD1760A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointGenerator.Roslyn4.8", "src\EndpointGenerator.Roslyn4.8\EndpointGenerator.Roslyn4.8.csproj", "{BAB75834-5C22-4260-9215-DB9E89F55F08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,19 +35,38 @@ Global
 		{2516AC7A-28A3-4429-B886-D060C118D513}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2516AC7A-28A3-4429-B886-D060C118D513}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2516AC7A-28A3-4429-B886-D060C118D513}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A4B64658-5D89-4287-A18C-ADA8BF9A10F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A4B64658-5D89-4287-A18C-ADA8BF9A10F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A4B64658-5D89-4287-A18C-ADA8BF9A10F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A4B64658-5D89-4287-A18C-ADA8BF9A10F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{17F1DAB6-47B1-47EA-BAD7-38EBB937A0F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17F1DAB6-47B1-47EA-BAD7-38EBB937A0F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17F1DAB6-47B1-47EA-BAD7-38EBB937A0F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17F1DAB6-47B1-47EA-BAD7-38EBB937A0F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD7E2B8F-BFDF-47D1-B341-EB61DD241662}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD7E2B8F-BFDF-47D1-B341-EB61DD241662}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD7E2B8F-BFDF-47D1-B341-EB61DD241662}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD7E2B8F-BFDF-47D1-B341-EB61DD241662}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66F0E9B4-7618-4123-BC22-4116DE1135D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66F0E9B4-7618-4123-BC22-4116DE1135D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66F0E9B4-7618-4123-BC22-4116DE1135D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66F0E9B4-7618-4123-BC22-4116DE1135D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C215B65-0B60-490A-B114-4AFB2BD1760A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C215B65-0B60-490A-B114-4AFB2BD1760A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C215B65-0B60-490A-B114-4AFB2BD1760A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C215B65-0B60-490A-B114-4AFB2BD1760A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BD706FC-E351-496F-8786-BB04D975C58A}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{5c215b65-0b60-490a-b114-4afb2bd1760a}*SharedItemsImports = 5
+		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{66f0e9b4-7618-4123-bc22-4116de1135d3}*SharedItemsImports = 5
+		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{a4d16807-36f7-411b-b279-6e2a90c41700}*SharedItemsImports = 13
+		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{ad7e2b8f-bfdf-47d1-b341-eb61dd241662}*SharedItemsImports = 5
+		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{bab75834-5c22-4260-9215-db9e89f55f08}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
