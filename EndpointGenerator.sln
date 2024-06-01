@@ -12,6 +12,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Attribute
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Tests", "src\EndpointGenerator.Tests\EndpointGenerator.Tests.csproj", "{17F1DAB6-47B1-47EA-BAD7-38EBB937A0F6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED} = {73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCAE0B0B-7A73-4200-9CC8-1B1A95406624}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		src\Common.props = src\Common.props
 		src\Directory.Build.props = src\Directory.Build.props
 		src\global.json = src\global.json
+		mdsnippets.json = mdsnippets.json
+		readme.source.md = readme.source.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn3.11", "src\EndpointGenerator.Roslyn3.11\EndpointGenerator.Roslyn3.11.csproj", "{AD7E2B8F-BFDF-47D1-B341-EB61DD241662}"
@@ -27,9 +32,11 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EndpointGenerator.Shared", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.4", "src\EndpointGenerator.Roslyn4.4\EndpointGenerator.Roslyn4.4.csproj", "{66F0E9B4-7618-4123-BC22-4116DE1135D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointGenerator.Roslyn4.6", "src\EndpointGenerator.Roslyn4.6\EndpointGenerator.Roslyn4.6.csproj", "{5C215B65-0B60-490A-B114-4AFB2BD1760A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.6", "src\EndpointGenerator.Roslyn4.6\EndpointGenerator.Roslyn4.6.csproj", "{5C215B65-0B60-490A-B114-4AFB2BD1760A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointGenerator.Roslyn4.8", "src\EndpointGenerator.Roslyn4.8\EndpointGenerator.Roslyn4.8.csproj", "{BAB75834-5C22-4260-9215-DB9E89F55F08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.8", "src\EndpointGenerator.Roslyn4.8\EndpointGenerator.Roslyn4.8.csproj", "{BAB75834-5C22-4260-9215-DB9E89F55F08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointGenerator.Example", "src\EndpointGenerator.Example\EndpointGenerator.Example.csproj", "{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +68,10 @@ Global
 		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
