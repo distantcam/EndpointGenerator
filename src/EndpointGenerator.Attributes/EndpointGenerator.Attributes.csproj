@@ -46,6 +46,11 @@
       <Visible>false</Visible>
       <PackagePath>analyzers/dotnet/roslyn4.8/cs</PackagePath>
     </None>
+    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn4.10\bin\Release\netstandard2.0\EndpointGenerator.dll">
+      <Pack>true</Pack>
+      <Visible>false</Visible>
+      <PackagePath>analyzers/dotnet/roslyn4.10/cs</PackagePath>
+    </None>
 
     <None Include="$(SolutionDir)readme.md" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>

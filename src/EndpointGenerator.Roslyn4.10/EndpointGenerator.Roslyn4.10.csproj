@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <DefineConstants>$(DefineConstants);ROSLYN_4;ROSLYN_4_8</DefineConstants>
+    <DefineConstants>$(DefineConstants);ROSLYN_4;ROSLYN_4_10</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoHelpers" Version="0.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" PrivateAssets="all" />
   </ItemGroup>
 
   <Import Project="../Common.props" />
