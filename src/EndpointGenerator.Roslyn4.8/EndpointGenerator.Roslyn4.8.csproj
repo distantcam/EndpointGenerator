@@ -5,11 +5,16 @@
     <DefineConstants>$(DefineConstants);ROSLYN_4;ROSLYN_4_8</DefineConstants>
   </PropertyGroup>
 
+  <Import Project="../Common.props" />
+
   <ItemGroup>
-    <PackageReference Include="AutoHelpers" Version="0.4.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" PrivateAssets="all" />
+    <Compile Include="../EndpointBuilderSourceGenerator4.cs" Link="EndpointBuilderSourceGenerator.cs" />
   </ItemGroup>
 
-  <Import Project="../Common.props" />
+  <ItemGroup>
+    <PackageReference Include="AutoHelpers" Version="0.4.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" PrivateAssets="all" />
+  </ItemGroup>
 
 </Project>
