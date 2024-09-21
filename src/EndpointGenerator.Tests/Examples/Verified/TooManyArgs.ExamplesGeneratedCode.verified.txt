@@ -1,24 +1,44 @@
 ﻿{
   Diagnostics: [
     {
-      Id: ENDP003,
-      Title: Method must have only one argument,
+      Location: /*
+    [EndpointGenerator.EndpointBuilder]
+    public static void Map(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder builder, string s)
+                       ^^^
+    {
+*/
+ : (3,23)-(3,26),
+      Message: The endpoint method 'TooManyArgs.Map(IEndpointRouteBuilder, string)' must have only one argument,
       Severity: Warning,
       WarningLevel: 1,
-      Location: : (3,23)-(3,26),
-      MessageFormat: The endpoint method '{0}' must have only one argument,
-      Message: The endpoint method 'TooManyArgs.Map(IEndpointRouteBuilder, string)' must have only one argument,
-      Category: EndpointGenerator
+      Descriptor: {
+        Id: ENDP003,
+        Title: Method must have only one argument,
+        MessageFormat: The endpoint method '{0}' must have only one argument,
+        Category: EndpointGenerator,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
     },
     {
-      Id: ENDP003,
-      Title: Method must have only one argument,
+      Location: /*
+    [EndpointGenerator.EndpointGroupBuilder]
+    public static void GroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder, string s)
+                       ^^^^^^^^
+    {
+*/
+ : (8,23)-(8,31),
+      Message: The endpoint method 'TooManyArgs.GroupMap(RouteGroupBuilder, string)' must have only one argument,
       Severity: Warning,
       WarningLevel: 1,
-      Location: : (8,23)-(8,31),
-      MessageFormat: The endpoint method '{0}' must have only one argument,
-      Message: The endpoint method 'TooManyArgs.GroupMap(RouteGroupBuilder, string)' must have only one argument,
-      Category: EndpointGenerator
+      Descriptor: {
+        Id: ENDP003,
+        Title: Method must have only one argument,
+        MessageFormat: The endpoint method '{0}' must have only one argument,
+        Category: EndpointGenerator,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
     }
   ]
 }

@@ -1,44 +1,84 @@
 ﻿{
   Diagnostics: [
     {
-      Id: ENDP004,
-      Title: Method must have correct argument type,
-      Severity: Warning,
-      WarningLevel: 1,
-      Location: : (3,23)-(3,32),
-      MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.IEndpointRouteBuilder',
+      Location: /*
+    [EndpointGenerator.EndpointBuilder]
+    public static void StringMap(string builder)
+                       ^^^^^^^^^
+    {
+*/
+ : (3,23)-(3,32),
       Message: The endpoint method 'WrongArgType.StringMap(string)' must have only one argument of type 'Microsoft.AspNetCore.Routing.IEndpointRouteBuilder',
-      Category: EndpointGenerator
-    },
-    {
-      Id: ENDP004,
-      Title: Method must have correct argument type,
       Severity: Warning,
       WarningLevel: 1,
-      Location: : (7,23)-(7,31),
-      MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.IEndpointRouteBuilder',
+      Descriptor: {
+        Id: ENDP004,
+        Title: Method must have correct argument type,
+        MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.IEndpointRouteBuilder',
+        Category: EndpointGenerator,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
+    },
+    {
+      Location: /*
+    [EndpointGenerator.EndpointBuilder]
+    public static void GroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder)
+                       ^^^^^^^^
+    {
+*/
+ : (7,23)-(7,31),
       Message: The endpoint method 'WrongArgType.GroupMap(RouteGroupBuilder)' must have only one argument of type 'Microsoft.AspNetCore.Routing.IEndpointRouteBuilder',
-      Category: EndpointGenerator
-    },
-    {
-      Id: ENDP005,
-      Title: Method must have correct argument type,
       Severity: Warning,
       WarningLevel: 1,
-      Location: : (12,23)-(12,26),
-      MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.RouteGroupBuilder',
+      Descriptor: {
+        Id: ENDP004,
+        Title: Method must have correct argument type,
+        MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.IEndpointRouteBuilder',
+        Category: EndpointGenerator,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
+    },
+    {
+      Location: /*
+    [EndpointGenerator.EndpointGroupBuilder]
+    public static void Map(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder builder)
+                       ^^^
+    {
+*/
+ : (12,23)-(12,26),
       Message: The endpoint method 'WrongArgType.Map(IEndpointRouteBuilder)' must have only one argument of type 'Microsoft.AspNetCore.Routing.RouteGroupBuilder',
-      Category: EndpointGenerator
-    },
-    {
-      Id: ENDP005,
-      Title: Method must have correct argument type,
       Severity: Warning,
       WarningLevel: 1,
-      Location: : (16,23)-(16,37),
-      MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.RouteGroupBuilder',
+      Descriptor: {
+        Id: ENDP005,
+        Title: Method must have correct argument type,
+        MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.RouteGroupBuilder',
+        Category: EndpointGenerator,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
+    },
+    {
+      Location: /*
+    [EndpointGenerator.EndpointGroupBuilder]
+    public static void StringGroupMap(string builder)
+                       ^^^^^^^^^^^^^^
+    {
+*/
+ : (16,23)-(16,37),
       Message: The endpoint method 'WrongArgType.StringGroupMap(string)' must have only one argument of type 'Microsoft.AspNetCore.Routing.RouteGroupBuilder',
-      Category: EndpointGenerator
+      Severity: Warning,
+      WarningLevel: 1,
+      Descriptor: {
+        Id: ENDP005,
+        Title: Method must have correct argument type,
+        MessageFormat: The endpoint method '{0}' must have only one argument of type 'Microsoft.AspNetCore.Routing.RouteGroupBuilder',
+        Category: EndpointGenerator,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
     }
   ]
 }

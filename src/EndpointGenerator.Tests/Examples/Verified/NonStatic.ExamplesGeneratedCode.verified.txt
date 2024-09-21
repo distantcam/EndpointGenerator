@@ -1,24 +1,44 @@
 ﻿{
   Diagnostics: [
     {
-      Id: ENDP001,
-      Title: Method must be static,
+      Location: /*
+    [EndpointGenerator.EndpointBuilder]
+    public void Map(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder builder)
+                ^^^
+    {
+*/
+ : (3,16)-(3,19),
+      Message: The endpoint method 'NonStatic.Map(IEndpointRouteBuilder)' must be static,
       Severity: Warning,
       WarningLevel: 1,
-      Location: : (3,16)-(3,19),
-      MessageFormat: The endpoint method '{0}' must be static,
-      Message: The endpoint method 'NonStatic.Map(IEndpointRouteBuilder)' must be static,
-      Category: EndpointGenerator
+      Descriptor: {
+        Id: ENDP001,
+        Title: Method must be static,
+        MessageFormat: The endpoint method '{0}' must be static,
+        Category: EndpointGenerator,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
     },
     {
-      Id: ENDP001,
-      Title: Method must be static,
+      Location: /*
+    [EndpointGenerator.EndpointGroupBuilder]
+    public void GroupMap(Microsoft.AspNetCore.Routing.RouteGroupBuilder builder)
+                ^^^^^^^^
+    {
+*/
+ : (8,16)-(8,24),
+      Message: The endpoint method 'NonStatic.GroupMap(RouteGroupBuilder)' must be static,
       Severity: Warning,
       WarningLevel: 1,
-      Location: : (8,16)-(8,24),
-      MessageFormat: The endpoint method '{0}' must be static,
-      Message: The endpoint method 'NonStatic.GroupMap(RouteGroupBuilder)' must be static,
-      Category: EndpointGenerator
+      Descriptor: {
+        Id: ENDP001,
+        Title: Method must be static,
+        MessageFormat: The endpoint method '{0}' must be static,
+        Category: EndpointGenerator,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
     }
   ]
 }
