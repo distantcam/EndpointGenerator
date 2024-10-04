@@ -10,6 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Attribute
 		{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068} = {6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}
 		{AD7E2B8F-BFDF-47D1-B341-EB61DD241662} = {AD7E2B8F-BFDF-47D1-B341-EB61DD241662}
 		{BAB75834-5C22-4260-9215-DB9E89F55F08} = {BAB75834-5C22-4260-9215-DB9E89F55F08}
+		{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832} = {E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Tests", "src\EndpointGenerator.Tests\EndpointGenerator.Tests.csproj", "{17F1DAB6-47B1-47EA-BAD7-38EBB937A0F6}"
@@ -41,6 +42,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Example", "src\EndpointGenerator.Example\EndpointGenerator.Example.csproj", "{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.10", "src\EndpointGenerator.Roslyn4.10\EndpointGenerator.Roslyn4.10.csproj", "{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.12", "src\EndpointGenerator.Roslyn4.12\EndpointGenerator.Roslyn4.12.csproj", "{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +83,10 @@ Global
 		{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +101,6 @@ Global
 		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{a4d16807-36f7-411b-b279-6e2a90c41700}*SharedItemsImports = 13
 		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{ad7e2b8f-bfdf-47d1-b341-eb61dd241662}*SharedItemsImports = 5
 		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{bab75834-5c22-4260-9215-db9e89f55f08}*SharedItemsImports = 5
+		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{e8cc0e20-ddcb-47bf-a245-dbadc1bff832}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

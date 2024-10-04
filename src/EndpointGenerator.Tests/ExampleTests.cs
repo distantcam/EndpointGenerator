@@ -78,7 +78,7 @@ public class ExampleTests
     {
         var aspnetRef = await new ReferenceAssemblies(
             "net8.0",
-            new("Microsoft.AspNetCore.App.Ref", "8.0.6"),
+            new("Microsoft.AspNetCore.App.Ref", "8.0.8"),
             Path.Combine("ref", "net8.0"))
             .ResolveAsync(null, CancellationToken.None);
 
