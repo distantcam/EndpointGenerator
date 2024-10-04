@@ -12,6 +12,7 @@ public class ExampleTests
     public async Task ExamplesGeneratedCode(CodeFileTheoryData theoryData)
     {
         var compilation = await Helpers.Compile<EndpointBuilderAttribute>(theoryData.Codes,
+            netCoreVersion: "8.0.8",
             preprocessorSymbols: PreprocessorSymbols,
             assemblyName: "EndpointGeneratorTest",
             extraReferences: await ExtraReferences());
@@ -29,6 +30,7 @@ public class ExampleTests
     public async Task CodeCompilesProperly(CodeFileTheoryData theoryData)
     {
         var compilation = await Helpers.Compile<EndpointBuilderAttribute>(theoryData.Codes,
+            netCoreVersion: "8.0.8",
             preprocessorSymbols: PreprocessorSymbols,
             assemblyName: "EndpointGeneratorTest",
             extraReferences: await ExtraReferences());
@@ -47,6 +49,7 @@ public class ExampleTests
     public async Task EnsureRunsAreCachedCorrectly(CodeFileTheoryData theoryData)
     {
         var compilation = await Helpers.Compile<EndpointBuilderAttribute>(theoryData.Codes,
+            netCoreVersion: "8.0.8",
             preprocessorSymbols: PreprocessorSymbols,
             assemblyName: "EndpointGeneratorTest",
             extraReferences: await ExtraReferences());
@@ -78,7 +81,7 @@ public class ExampleTests
     {
         var aspnetRef = await new ReferenceAssemblies(
             "net8.0",
-            new("Microsoft.AspNetCore.App.Ref", "8.0.6"),
+            new("Microsoft.AspNetCore.App.Ref", "8.0.8"),
             Path.Combine("ref", "net8.0"))
             .ResolveAsync(null, CancellationToken.None);
 
