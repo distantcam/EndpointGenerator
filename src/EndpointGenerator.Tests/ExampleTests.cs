@@ -1,6 +1,7 @@
 ﻿using System.Collections.Immutable;
 using FluentAssertions;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Testing;
 
 namespace EndpointGenerator.Tests;
@@ -12,12 +13,12 @@ public class ExampleTests
     public async Task ExamplesGeneratedCode(CodeFileTheoryData theoryData)
     {
         var compilation = await Helpers.Compile<EndpointBuilderAttribute>(theoryData.Codes,
-            netCoreVersion: "8.0.8",
-            preprocessorSymbols: PreprocessorSymbols,
+            langPreview: theoryData.LangPreview,
+            preprocessorSymbols: s_preprocessorSymbols,
             assemblyName: "EndpointGeneratorTest",
             extraReferences: await ExtraReferences());
         var generator = new EndpointBuilderSourceGenerator().AsSourceGenerator();
-        var driver = Helpers.CreateDriver(theoryData.Options, generator)
+        var driver = Helpers.CreateDriver(theoryData.Options, theoryData.LangPreview, generator)
             .RunGenerators(compilation);
 
         await Verify(driver)
@@ -30,12 +31,12 @@ public class ExampleTests
     public async Task CodeCompilesProperly(CodeFileTheoryData theoryData)
     {
         var compilation = await Helpers.Compile<EndpointBuilderAttribute>(theoryData.Codes,
-            netCoreVersion: "8.0.8",
-            preprocessorSymbols: PreprocessorSymbols,
+            langPreview: theoryData.LangPreview,
+            preprocessorSymbols: s_preprocessorSymbols,
             assemblyName: "EndpointGeneratorTest",
             extraReferences: await ExtraReferences());
         var generator = new EndpointBuilderSourceGenerator().AsSourceGenerator();
-        Helpers.CreateDriver(theoryData.Options, generator)
+        Helpers.CreateDriver(theoryData.Options, theoryData.LangPreview, generator)
             .RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out _);
 
         outputCompilation.GetDiagnostics()
@@ -49,17 +50,19 @@ public class ExampleTests
     public async Task EnsureRunsAreCachedCorrectly(CodeFileTheoryData theoryData)
     {
         var compilation = await Helpers.Compile<EndpointBuilderAttribute>(theoryData.Codes,
-            netCoreVersion: "8.0.8",
-            preprocessorSymbols: PreprocessorSymbols,
+            langPreview: theoryData.LangPreview,
+            preprocessorSymbols: s_preprocessorSymbols,
             assemblyName: "EndpointGeneratorTest",
             extraReferences: await ExtraReferences());
         var generator = new EndpointBuilderSourceGenerator().AsSourceGenerator();
 
-        var driver = Helpers.CreateDriver(theoryData.Options, generator);
+        var driver = Helpers.CreateDriver(theoryData.Options, theoryData.LangPreview, generator);
         driver = driver.RunGenerators(compilation);
         var firstResult = driver.GetRunResult();
-        compilation = compilation.AddSyntaxTrees(
-            Microsoft.CodeAnalysis.CSharp.CSharpSyntaxTree.ParseText("// dummy"));
+        compilation = compilation.AddSyntaxTrees(CSharpSyntaxTree.ParseText("// dummy",
+            CSharpParseOptions.Default.WithLanguageVersion(theoryData.LangPreview
+                ? LanguageVersion.Preview
+                : LanguageVersion.Latest)));
         driver = driver.RunGenerators(compilation);
         var secondResult = driver.GetRunResult();
 
@@ -70,7 +73,7 @@ public class ExampleTests
 
     // ----------------------------------------------------------------------------------------
 
-    private static IEnumerable<string> PreprocessorSymbols =
+    private static IEnumerable<string> s_preprocessorSymbols =
 #if ROSLYN_3
         ["ROSLYN_3"];
 #elif ROSLYN_4
@@ -80,9 +83,9 @@ public class ExampleTests
     private static async Task<IEnumerable<MetadataReference>> ExtraReferences()
     {
         var aspnetRef = await new ReferenceAssemblies(
-            "net8.0",
-            new("Microsoft.AspNetCore.App.Ref", "8.0.8"),
-            Path.Combine("ref", "net8.0"))
+            "net9.0",
+            new("Microsoft.AspNetCore.App.Ref", "9.0.0"),
+            Path.Combine("ref", "net9.0"))
             .ResolveAsync(null, CancellationToken.None);
 
         return [.. aspnetRef];
