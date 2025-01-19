@@ -1,4 +1,4 @@
-using Microsoft.CodeAnalysis;
+﻿using Microsoft.CodeAnalysis;
 
 internal record struct ContainingTypeModel(string Name, string? Tag);
 
@@ -24,21 +24,21 @@ internal record struct MethodModel(
     public static MethodModel Create(IMethodSymbol method)
     {
         var attribute = method.GetAttributes()
-            .FirstOrDefault(a => a.AttributeClass?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) == "global::EndpointGenerator.EndpointGroupBuilderAttribute");
+            .FirstOrDefault(a => a.AttributeClass?.ToDisplayString(FullyQualifiedFormat) == "global::EndpointGenerator.EndpointGroupBuilderAttribute");
         var groupedAttributeParameters = attribute != null
             ? new GroupedAttributeParametersModel(attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty)
             : null;
 
         return new(
-            StaticCall: $"{method.ContainingType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)}.{method.Name}",
-            ErrorName: method.ToDisplayString(SymbolDisplayFormat.CSharpShortErrorMessageFormat),
+            StaticCall: $"{method.ContainingType.ToDisplayString(FullyQualifiedFormat)}.{method.Name}",
+            ErrorName: method.ToDisplayString(CSharpShortErrorMessageFormat),
 
             IsStatic: method.IsStatic,
             DeclaredAccessibility: method.DeclaredAccessibility,
 
             ParameterCount: method.Parameters.Length,
             FirstParameterType: method.Parameters.Length > 0
-                ? method.Parameters[0].Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)
+                ? method.Parameters[0].Type.ToDisplayString(FullyQualifiedFormat)
                 : null,
 
             ContainingType: new(

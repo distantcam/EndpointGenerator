@@ -1,9 +1,9 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Testing;
 
 #if ROSLYN_4
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.Testing;
 #endif
 
 namespace EndpointGenerator.Tests;
