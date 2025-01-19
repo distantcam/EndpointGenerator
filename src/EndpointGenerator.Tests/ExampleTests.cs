@@ -1,8 +1,10 @@
 ﻿using System.Collections.Immutable;
-using FluentAssertions;
 using Microsoft.CodeAnalysis;
+
+#if ROSLYN_4
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Testing;
+#endif
 
 namespace EndpointGenerator.Tests;
 
@@ -19,11 +21,11 @@ public class ExampleTests
             extraReferences: await ExtraReferences());
         var generator = new EndpointBuilderSourceGenerator().AsSourceGenerator();
         var driver = Helpers.CreateDriver(theoryData.Options, theoryData.LangPreview, generator)
-            .RunGenerators(compilation);
+            .RunGenerators(compilation, TestContext.Current.CancellationToken);
 
         await Verify(driver)
             .UseDirectory(theoryData.VerifiedDirectory)
-            .UseTypeName(theoryData.Name);
+            .UseTypeName(theoryData.Name).IgnoreParametersForVerified(theoryData);
     }
 
     [Theory]
@@ -37,11 +39,9 @@ public class ExampleTests
             extraReferences: await ExtraReferences());
         var generator = new EndpointBuilderSourceGenerator().AsSourceGenerator();
         Helpers.CreateDriver(theoryData.Options, theoryData.LangPreview, generator)
-            .RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out _);
+            .RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out _, TestContext.Current.CancellationToken);
 
-        outputCompilation.GetDiagnostics()
-            .Where(d => !theoryData.IgnoredCompileDiagnostics.Contains(d.Id))
-            .Should().BeEmpty();
+        Assert.Empty(outputCompilation.GetDiagnostics(TestContext.Current.CancellationToken).Where(d => !theoryData.IgnoredCompileDiagnostics.Contains(d.Id)));
     }
 
 #if ROSLYN_4
@@ -57,13 +57,14 @@ public class ExampleTests
         var generator = new EndpointBuilderSourceGenerator().AsSourceGenerator();
 
         var driver = Helpers.CreateDriver(theoryData.Options, theoryData.LangPreview, generator);
-        driver = driver.RunGenerators(compilation);
+        driver = driver.RunGenerators(compilation, TestContext.Current.CancellationToken);
         var firstResult = driver.GetRunResult();
         compilation = compilation.AddSyntaxTrees(CSharpSyntaxTree.ParseText("// dummy",
             CSharpParseOptions.Default.WithLanguageVersion(theoryData.LangPreview
                 ? LanguageVersion.Preview
-                : LanguageVersion.Latest)));
-        driver = driver.RunGenerators(compilation);
+                : LanguageVersion.Latest),
+            cancellationToken: TestContext.Current.CancellationToken));
+        driver = driver.RunGenerators(compilation, TestContext.Current.CancellationToken);
         var secondResult = driver.GetRunResult();
 
         Helpers.AssertRunsEqual(firstResult, secondResult,
@@ -73,7 +74,7 @@ public class ExampleTests
 
     // ----------------------------------------------------------------------------------------
 
-    private static IEnumerable<string> s_preprocessorSymbols =
+    private static readonly IEnumerable<string> s_preprocessorSymbols =
 #if ROSLYN_3
         ["ROSLYN_3"];
 #elif ROSLYN_4
