@@ -21,7 +21,7 @@ public class ExampleTests
             extraReferences: await ExtraReferences());
         var generator = new EndpointBuilderSourceGenerator().AsSourceGenerator();
         var driver = Helpers.CreateDriver(theoryData.Options, theoryData.LangPreview, generator)
-            .RunGenerators(compilation, TestContext.Current.CancellationToken);
+            .RunGenerators(compilation);
 
         await Verify(driver)
             .UseDirectory(theoryData.VerifiedDirectory)
@@ -39,9 +39,9 @@ public class ExampleTests
             extraReferences: await ExtraReferences());
         var generator = new EndpointBuilderSourceGenerator().AsSourceGenerator();
         Helpers.CreateDriver(theoryData.Options, theoryData.LangPreview, generator)
-            .RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out _, TestContext.Current.CancellationToken);
+            .RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out _);
 
-        Assert.Empty(outputCompilation.GetDiagnostics(TestContext.Current.CancellationToken).Where(d => !theoryData.IgnoredCompileDiagnostics.Contains(d.Id)));
+        Assert.Empty(outputCompilation.GetDiagnostics().Where(d => !theoryData.IgnoredCompileDiagnostics.Contains(d.Id)));
     }
 
 #if ROSLYN_4
@@ -57,14 +57,13 @@ public class ExampleTests
         var generator = new EndpointBuilderSourceGenerator().AsSourceGenerator();
 
         var driver = Helpers.CreateDriver(theoryData.Options, theoryData.LangPreview, generator);
-        driver = driver.RunGenerators(compilation, TestContext.Current.CancellationToken);
+        driver = driver.RunGenerators(compilation);
         var firstResult = driver.GetRunResult();
         compilation = compilation.AddSyntaxTrees(CSharpSyntaxTree.ParseText("// dummy",
             CSharpParseOptions.Default.WithLanguageVersion(theoryData.LangPreview
                 ? LanguageVersion.Preview
-                : LanguageVersion.Latest),
-            cancellationToken: TestContext.Current.CancellationToken));
-        driver = driver.RunGenerators(compilation, TestContext.Current.CancellationToken);
+                : LanguageVersion.Latest)));
+        driver = driver.RunGenerators(compilation);
         var secondResult = driver.GetRunResult();
 
         Helpers.AssertRunsEqual(firstResult, secondResult,
