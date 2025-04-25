@@ -9,15 +9,27 @@
     <Import_RootNamespace>EndpointGenerator.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator.Emitter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator.Parser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator.Tracking.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator.Diagnostics.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\IsExternalInit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator\Emitter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator\Tracking.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator\Diagnostics.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeBuilder.Block.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeBuilder.InterpolatedStringHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeBuilder.PartialType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\CodeBuilder.Templates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\EquatableList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\EquatableTypeSymbol.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\GeneratorUtilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Polyfill.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AttributeNames.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\MethodModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)AnalyzerReleases.Shipped.md" />
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)AnalyzerReleases.Unshipped.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)EndpointBuilderSourceGenerator\" />
   </ItemGroup>
 </Project>

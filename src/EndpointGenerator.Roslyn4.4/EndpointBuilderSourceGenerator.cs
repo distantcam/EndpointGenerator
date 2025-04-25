@@ -11,15 +11,15 @@ public sealed partial class EndpointBuilderSourceGenerator : IIncrementalGenerat
             .WithTrackingName(TrackingNames.AssemblyName);
 
         var builderMethods = context.SyntaxProvider.ForAttributeWithMetadataName(
-            "EndpointGenerator.EndpointBuilderAttribute",
-            Parser.IsMethodDeclaration,
+            AttributeNames.EndpointBuilder,
+            GeneratorUtilities.IsMethodDeclarationWithAttributes,
             static (c, ct) => MethodModel.Create((IMethodSymbol)c.TargetSymbol))
         .WithTrackingName(TrackingNames.BuilderModels)
         .Collect();
 
         var groupBuilderMethods = context.SyntaxProvider.ForAttributeWithMetadataName(
-            "EndpointGenerator.EndpointGroupBuilderAttribute",
-            Parser.IsMethodDeclaration,
+            AttributeNames.EndpointGroupBuilder,
+            GeneratorUtilities.IsMethodDeclarationWithAttributes,
             static (c, ct) => MethodModel.Create((IMethodSymbol)c.TargetSymbol))
         .WithTrackingName(TrackingNames.GroupBuilderModels)
         .Collect();

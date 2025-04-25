@@ -1,6 +1,5 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace EndpointGenerator;
 
@@ -13,14 +12,13 @@ public sealed partial class EndpointBuilderSourceGenerator : ISourceGenerator
 
         public void OnVisitSyntaxNode(GeneratorSyntaxContext context)
         {
-            if (context.Node is MethodDeclarationSyntax { AttributeLists.Count: > 0 })
+            IMethodSymbol? method;
+            if (GeneratorUtilities.IsMethodDeclarationWithAttributes(context.Node, cancellationToken)
+                && (method = GeneratorUtilities.GetSymbol<IMethodSymbol>(context, cancellationToken)) != null)
             {
-                var method = Parser.GetBuilderMarkedMethodSymbol(context, cancellationToken);
-                if (method != null)
+                if (GeneratorUtilities.HasAttribute(method, AttributeNames.EndpointBuilder))
                     (BuilderMethods ??= []).Add(MethodModel.Create(method));
-
-                method = Parser.GetGroupBuilderMarkedMethodSymbol(context, cancellationToken);
-                if (method != null)
+                if (GeneratorUtilities.HasAttribute(method, AttributeNames.EndpointGroupBuilder))
                     (GroupBuilderMethods ??= []).Add(MethodModel.Create(method));
             }
         }

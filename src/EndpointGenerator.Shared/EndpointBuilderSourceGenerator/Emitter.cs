@@ -1,4 +1,4 @@
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 
@@ -27,11 +27,11 @@ public partial class EndpointBuilderSourceGenerator
 
             var source = new CodeBuilder().AppendHeader().AppendLine();
 
-            source.AppendLineNoIndent("#pragma warning disable CS8019");
+            source.AppendLineRaw("#pragma warning disable CS8019");
             source.AppendLine("using global::Microsoft.AspNetCore.Builder;");
             source.AppendLine("using global::Microsoft.AspNetCore.Http;");
             source.AppendLine("using global::Microsoft.AspNetCore.Routing;");
-            source.AppendLineNoIndent("#pragma warning restore CS8019");
+            source.AppendLineRaw("#pragma warning restore CS8019");
             source.AppendLine();
 
             using (source.StartBlock("namespace Microsoft.Extensions.DependencyInjection"))

@@ -1,0 +1,21 @@
+<Project>
+
+  <Target Name="_EndpointGeneratorGatherAnalyzers">
+    <ItemGroup>
+      <_EndpointGeneratorAnalyzer Include="@(Analyzer)" Condition="'%(Analyzer.NuGetPackageId)' == 'EndpointGenerator'" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="_EndpointGeneratorAnalyzerMultiTargeting"
+          Condition="'$(SupportsRoslynComponentVersioning)' != 'true'"
+          AfterTargets="ResolvePackageDependenciesForBuild;ResolveNuGetPackageAssets"
+          DependsOnTargets="_EndpointGeneratorGatherAnalyzers">
+
+    <ItemGroup>
+      <!-- Remove our analyzers targeting roslyn4.x -->
+      <Analyzer Remove="@(_EndpointGeneratorAnalyzer)"
+                Condition="$([System.String]::Copy('%(_EndpointGeneratorAnalyzer.Identity)').IndexOf('roslyn4')) &gt;= 0"/>
+    </ItemGroup>
+  </Target>
+
+</Project>

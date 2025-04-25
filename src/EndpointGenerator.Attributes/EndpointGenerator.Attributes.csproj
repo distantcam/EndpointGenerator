@@ -1,17 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>EndpointGenerator</RootNamespace>
-
-    <Version>0.0.0</Version>
-    <PackageProjectUrl>https://github.com/distantcam/EndpointGenerator</PackageProjectUrl>
-
-    <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">true</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>EndpointGenerator</PackageId>
+    <Version>0.0.0</Version>
     <Authors>Cameron MacFarland</Authors>
     <Description>
       Source Generator to help create minimal api endpoint mappings.
@@ -19,6 +17,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageOutputPath>$(SolutionDir)nugets</PackageOutputPath>
+    <PackageProjectUrl>https://github.com/distantcam/EndpointGenerator</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,38 +25,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn3.11\bin\Release\netstandard2.0\EndpointGenerator.dll">
-      <Pack>true</Pack>
-      <Visible>false</Visible>
-      <PackagePath>analyzers/dotnet/roslyn3.11/cs</PackagePath>
-    </None>
-    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn4.4\bin\Release\netstandard2.0\EndpointGenerator.dll">
-      <Pack>true</Pack>
-      <Visible>false</Visible>
-      <PackagePath>analyzers/dotnet/roslyn4.4/cs</PackagePath>
-    </None>
-    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn4.6\bin\Release\netstandard2.0\EndpointGenerator.dll">
-      <Pack>true</Pack>
-      <Visible>false</Visible>
-      <PackagePath>analyzers/dotnet/roslyn4.6/cs</PackagePath>
-    </None>
-    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn4.8\bin\Release\netstandard2.0\EndpointGenerator.dll">
-      <Pack>true</Pack>
-      <Visible>false</Visible>
-      <PackagePath>analyzers/dotnet/roslyn4.8/cs</PackagePath>
-    </None>
-    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn4.10\bin\Release\netstandard2.0\EndpointGenerator.dll">
-      <Pack>true</Pack>
-      <Visible>false</Visible>
-      <PackagePath>analyzers/dotnet/roslyn4.10/cs</PackagePath>
-    </None>
-    <None Include="$(SolutionDir)\src\EndpointGenerator.Roslyn4.12\bin\Release\netstandard2.0\EndpointGenerator.dll">
-      <Pack>true</Pack>
-      <Visible>false</Visible>
-      <PackagePath>analyzers/dotnet/roslyn4.12/cs</PackagePath>
-    </None>
+    <None Include="$(ArtifactsPath)\bin\EndpointGenerator.Roslyn3.11\$(ArtifactsPivots)\EndpointGenerator.dll"
+          Pack="true" PackagePath="analyzers/dotnet/roslyn3.11/cs" Visible="false" />
 
-    <None Include="$(SolutionDir)readme.md" Pack="true" PackagePath="\" Visible="false" />
+    <None Include="$(ArtifactsPath)\bin\EndpointGenerator.Roslyn4.0\$(ArtifactsPivots)\EndpointGenerator.dll"
+          Pack="true" PackagePath="analyzers/dotnet/roslyn4.0/cs" Visible="false" />
+
+    <None Include="$(ArtifactsPath)\bin\EndpointGenerator.Roslyn4.4\$(ArtifactsPivots)\EndpointGenerator.dll"
+      Pack="true" PackagePath="analyzers/dotnet/roslyn4.4/cs" Visible="false" />
+
+    <None Include="$(SolutionDir)readme.md"
+          Pack="true" PackagePath="\" Visible="false" />
+
+    <None Include="$(SolutionDir)\src\nugetfiles\EndpointGenerator.targets"
+          Pack="true" PackagePath="buildTransitive\net8.0" Visible="false" />
+    <None Include="$(SolutionDir)\src\nugetfiles\EndpointGenerator.targets"
+          Pack="true" PackagePath="buildTransitive\net462" Visible="false" />
+    <None Include="$(SolutionDir)\src\nugetfiles\EndpointGenerator.targets"
+          Pack="true" PackagePath="buildTransitive\netstandard2.0" Visible="false" />
+
+    <None Include="$(SolutionDir)\src\nugetfiles\EndpointGenerator.badcompat.targets"
+          Pack="true" PackagePath="buildTransitive\net461\EndpointGenerator.targets" Visible="false" />
+    <None Include="$(SolutionDir)\src\nugetfiles\EndpointGenerator.badcompat.targets"
+          Pack="true" PackagePath="buildTransitive\netcoreapp2.0\EndpointGenerator.targets" Visible="false" />
   </ItemGroup>
 
 </Project>

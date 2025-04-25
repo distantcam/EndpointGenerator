@@ -1,16 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 17
+# Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Attributes", "src\EndpointGenerator.Attributes\EndpointGenerator.Attributes.csproj", "{2516AC7A-28A3-4429-B886-D060C118D513}"
 	ProjectSection(ProjectDependencies) = postProject
-		{5C215B65-0B60-490A-B114-4AFB2BD1760A} = {5C215B65-0B60-490A-B114-4AFB2BD1760A}
 		{66F0E9B4-7618-4123-BC22-4116DE1135D3} = {66F0E9B4-7618-4123-BC22-4116DE1135D3}
-		{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068} = {6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}
 		{AD7E2B8F-BFDF-47D1-B341-EB61DD241662} = {AD7E2B8F-BFDF-47D1-B341-EB61DD241662}
-		{BAB75834-5C22-4260-9215-DB9E89F55F08} = {BAB75834-5C22-4260-9215-DB9E89F55F08}
-		{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832} = {E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Tests", "src\EndpointGenerator.Tests\EndpointGenerator.Tests.csproj", "{17F1DAB6-47B1-47EA-BAD7-38EBB937A0F6}"
@@ -20,10 +16,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Tests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CCAE0B0B-7A73-4200-9CC8-1B1A95406624}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build.yml = .github\workflows\build.yml
 		src\Common.props = src\Common.props
 		src\Directory.Build.props = src\Directory.Build.props
 		src\Directory.Packages.props = src\Directory.Packages.props
+		src\nugetfiles\EndpointGenerator.badcompat.targets = src\nugetfiles\EndpointGenerator.badcompat.targets
+		src\nugetfiles\EndpointGenerator.targets = src\nugetfiles\EndpointGenerator.targets
 		src\global.json = src\global.json
 		mdsnippets.json = mdsnippets.json
 		readme.source.md = readme.source.md
@@ -35,15 +32,15 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "EndpointGenerator.Shared", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.4", "src\EndpointGenerator.Roslyn4.4\EndpointGenerator.Roslyn4.4.csproj", "{66F0E9B4-7618-4123-BC22-4116DE1135D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.6", "src\EndpointGenerator.Roslyn4.6\EndpointGenerator.Roslyn4.6.csproj", "{5C215B65-0B60-490A-B114-4AFB2BD1760A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.8", "src\EndpointGenerator.Roslyn4.8\EndpointGenerator.Roslyn4.8.csproj", "{BAB75834-5C22-4260-9215-DB9E89F55F08}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Example", "src\EndpointGenerator.Example\EndpointGenerator.Example.csproj", "{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.10", "src\EndpointGenerator.Roslyn4.10\EndpointGenerator.Roslyn4.10.csproj", "{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointGenerator.Roslyn4.0", "src\EndpointGenerator.Roslyn4.0\EndpointGenerator.Roslyn4.0.csproj", "{06443541-85A1-87EC-75DC-43AD6F78B655}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndpointGenerator.Roslyn4.12", "src\EndpointGenerator.Roslyn4.12\EndpointGenerator.Roslyn4.12.csproj", "{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\workflows\publish.yml = .github\workflows\publish.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,40 +64,28 @@ Global
 		{66F0E9B4-7618-4123-BC22-4116DE1135D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66F0E9B4-7618-4123-BC22-4116DE1135D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66F0E9B4-7618-4123-BC22-4116DE1135D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5C215B65-0B60-490A-B114-4AFB2BD1760A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5C215B65-0B60-490A-B114-4AFB2BD1760A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5C215B65-0B60-490A-B114-4AFB2BD1760A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5C215B65-0B60-490A-B114-4AFB2BD1760A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAB75834-5C22-4260-9215-DB9E89F55F08}.Release|Any CPU.Build.0 = Release|Any CPU
 		{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73C353F3-2EC3-46DA-8524-2DDDEFFCBBED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D79A34F-AF8F-4DB2-A3CA-3896B5ACA068}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8CC0E20-DDCB-47BF-A245-DBADC1BFF832}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06443541-85A1-87EC-75DC-43AD6F78B655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06443541-85A1-87EC-75DC-43AD6F78B655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06443541-85A1-87EC-75DC-43AD6F78B655}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06443541-85A1-87EC-75DC-43AD6F78B655}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {CCAE0B0B-7A73-4200-9CC8-1B1A95406624}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BD706FC-E351-496F-8786-BB04D975C58A}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{5c215b65-0b60-490a-b114-4afb2bd1760a}*SharedItemsImports = 5
+		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{06443541-85a1-87ec-75dc-43ad6f78b655}*SharedItemsImports = 5
 		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{66f0e9b4-7618-4123-bc22-4116de1135d3}*SharedItemsImports = 5
-		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{6d79a34f-af8f-4db2-a3ca-3896b5aca068}*SharedItemsImports = 5
 		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{a4d16807-36f7-411b-b279-6e2a90c41700}*SharedItemsImports = 13
 		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{ad7e2b8f-bfdf-47d1-b341-eb61dd241662}*SharedItemsImports = 5
-		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{bab75834-5c22-4260-9215-db9e89f55f08}*SharedItemsImports = 5
-		src\EndpointGenerator.Shared\EndpointGenerator.Shared.projitems*{e8cc0e20-ddcb-47bf-a245-dbadc1bff832}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
