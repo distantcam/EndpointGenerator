@@ -77,7 +77,7 @@ public class ExampleTests
     private static CompilationBuilder CreateCompilation(CodeFileTheoryData theoryData)
     {
         return CreateCompilation<EndpointBuilderAttribute>(theoryData)
-            .AddNugetReference("Microsoft.AspNetCore.App.Ref", "9.0.4");
+            .AddNugetReference("Microsoft.AspNetCore.App.Ref", "9.0.4", path: "ref");
     }
 
     private static DirectoryInfo? BaseDir { get; } = new DirectoryInfo(Environment.CurrentDirectory)?.Parent?.Parent;
