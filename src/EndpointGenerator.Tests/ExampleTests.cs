@@ -17,7 +17,7 @@ public class ExampleTests
             .AddGenerator(new EndpointBuilderSourceGenerator())
             .WithAnalyzerOptions(theoryData.Options)
             .Build(builder.ParseOptions)
-            .RunGenerators(compilation, TestContext.Current.CancellationToken);
+            .RunGenerators(compilation);
 
         await Verify(driver)
             .UseDirectory(theoryData.VerifiedDirectory)
@@ -35,9 +35,9 @@ public class ExampleTests
             .AddGenerator(new EndpointBuilderSourceGenerator())
             .WithAnalyzerOptions(theoryData.Options)
             .Build(builder.ParseOptions)
-            .RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out _, TestContext.Current.CancellationToken);
+            .RunGeneratorsAndUpdateCompilation(compilation, out var outputCompilation, out _);
 
-        Assert.Empty(outputCompilation.GetDiagnostics(TestContext.Current.CancellationToken)
+        Assert.Empty(outputCompilation.GetDiagnostics()
             .Where(d => !theoryData.IgnoredCompileDiagnostics.Contains(d.Id)));
     }
 
@@ -54,17 +54,16 @@ public class ExampleTests
             .WithAnalyzerOptions(theoryData.Options)
             .Build(builder.ParseOptions);
 
-        driver = driver.RunGenerators(compilation, TestContext.Current.CancellationToken);
+        driver = driver.RunGenerators(compilation);
         var firstResult = driver.GetRunResult();
 
         // Change the compilation
         compilation = compilation.AddSyntaxTrees(CSharpSyntaxTree.ParseText("// dummy",
             CSharpParseOptions.Default.WithLanguageVersion(theoryData.LangPreview
                 ? LanguageVersion.Preview
-                : LanguageVersion.Latest),
-            cancellationToken: TestContext.Current.CancellationToken));
+                : LanguageVersion.Latest)));
 
-        driver = driver.RunGenerators(compilation, TestContext.Current.CancellationToken);
+        driver = driver.RunGenerators(compilation);
         var secondResult = driver.GetRunResult();
 
         AssertRunsEqual(firstResult, secondResult,
